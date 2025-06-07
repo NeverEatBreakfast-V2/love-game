@@ -17,6 +17,14 @@
             padding: 10px;
             margin: 5px;
         }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -30,6 +38,7 @@
     <button onclick="calculateMatch()">Check Compatibility</button>
 
     <p id="result"></p>
+    <canvas id="confetti"></canvas>
 
     <script>
         function calculateMatch() {
@@ -37,14 +46,50 @@
             var name2 = document.getElementById("name2").value.trim();
             var percentage = Math.floor(Math.random() * 101); // Random percentage from 0-100
 
+            var message = name1 + " and " + name2 + " have a soulmate match of " + percentage + "%! ❤️";
+
             // Special Easter egg for Bryan Hernandez & Sofia Tenore
-            if (name1.toLowerCase() === "bryan hernandez" && name2.toLowerCase() === "sofia tenore" ||
-                name2.toLowerCase() === "bryan hernandez" && name1.toLowerCase() === "sofia tenore") {
+            if ((name1.toLowerCase() === "bryan hernandez" && name2.toLowerCase() === "sofia tenore") ||
+                (name2.toLowerCase() === "bryan hernandez" && name1.toLowerCase() === "sofia tenore")) {
                 percentage = 100;
+                message += "<br><br>🔥 100%, huh? 🔥 Well, we know you guys need to be together, so just date already, Bryan and Sofia! 💍💖";
+                launchConfetti(); // Trigger confetti animation
             }
 
-            var message = name1 + " and " + name2 + " have a soulmate match of " + percentage + "%! ❤️";
             document.getElementById("result").innerHTML = message;
+        }
+
+        function launchConfetti() {
+            var canvas = document.getElementById("confetti");
+            var context = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            var confetti = [];
+            for (var i = 0; i < 100; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    color: "hsl(" + Math.random() * 360 + ", 100%, 50%)",
+                    size: Math.random() * 5 + 2,
+                    speedY: Math.random() * 2 + 1
+                });
+            }
+
+            function drawConfetti() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                confetti.forEach(function (piece) {
+                    context.fillStyle = piece.color;
+                    context.beginPath();
+                    context.arc(piece.x, piece.y, piece.size, 0, Math.PI * 2);
+                    context.fill();
+                    piece.y += piece.speedY;
+                    if (piece.y > canvas.height) piece.y = 0;
+                });
+                requestAnimationFrame(drawConfetti);
+            }
+
+            drawConfetti();
         }
     </script>
 

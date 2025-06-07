@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Soulmate Match Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9e6ff;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Find Your Soulmate Match!</h1>
+    <p>Enter two names to see how well they match.</p>
+
+    <input type="text" id="name1" placeholder="Enter first name">
+    <input type="text" id="name2" placeholder="Enter second name">
+    <br>
+    <button onclick="calculateMatch()">Check Compatibility</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateMatch() {
+            var name1 = document.getElementById("name1").value.trim();
+            var name2 = document.getElementById("name2").value.trim();
+            var percentage = Math.floor(Math.random() * 101); // Random percentage from 0-100
+
+            // Special Easter egg for Bryan Hernandez & Sofia Tenore
+            if (name1.toLowerCase() === "bryan hernandez" && name2.toLowerCase() === "sofia tenore" ||
+                name2.toLowerCase() === "bryan hernandez" && name1.toLowerCase() === "sofia tenore") {
+                percentage = 100;
+            }
+
+            var message = name1 + " and " + name2 + " have a soulmate match of " + percentage + "%! ❤️";
+            document.getElementById("result").innerHTML = message;
+        }
+    </script>
+
+</body>
+</html>

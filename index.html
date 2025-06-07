@@ -46,14 +46,14 @@
             var name2 = document.getElementById("name2").value.trim();
             var percentage = Math.floor(Math.random() * 101); // Random percentage from 0-100
 
-            var message = name1 + " and " + name2 + " have a soulmate match of " + percentage + "%! ❤️";
-
-            // Special Easter egg for Bryan Hernandez & Sofia Tenore
+            // Always 100% for Bryan Hernandez & Sofia Tenore
             if ((name1.toLowerCase() === "bryan hernandez" && name2.toLowerCase() === "sofia tenore") ||
                 (name2.toLowerCase() === "bryan hernandez" && name1.toLowerCase() === "sofia tenore")) {
                 percentage = 100;
-                message += "<br><br>🔥 100%, huh? 🔥 Well, we know you guys need to be together, so just date already, Bryan and Sofia! 💍💖";
+                message = "<br><br>🔥 100%, huh? 🔥 Well, we know you guys need to be together, so just date already, Bryan and Sofia! 💍💖";
                 launchConfetti(); // Trigger confetti animation
+            } else {
+                message = name1 + " and " + name2 + " have a soulmate match of " + percentage + "%! ❤️";
             }
 
             document.getElementById("result").innerHTML = message;
